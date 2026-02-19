@@ -1,283 +1,448 @@
-console.log('=========== Функции. ===========\n');
-console.log('=========== Задание 1. ===========\n');
+console.log('=== Задание 1 ===');
+let user = {};
+user.name = 'John';
+user.surname = 'Smith';
+user.name = 'Pete';
+delete user.name;
+console.log(user);
 
-function subtractOutput(a, b) {
-	console.log(`Разность чисел ${a} и ${b}: ${a - b}`);
+console.log('=== Задание 2 ===');
+let myBrowser = {
+	name: 'Microsoft Internet Explorer',
+	version: '9.0',
+};
+for (let key in myBrowser) {
+	console.log(`${key}: ${myBrowser[key]}`);
 }
-function subtract(a, b) {
-	return a - b;
-}
-subtractOutput(10, 4);
 
-let result = subtract(15, 6);
-console.log(`Разность чисел 15 и 6: ${result}`);
-
-console.log('\n=========== Задание 2. ===========\n');
-
-function greetByAge(age) {
-	if (age < 18) {
-		console.log('Привет, малыш!');
+console.log('=== Задание 3 ===');
+function isEmpty(obj) {
+	for (let key in obj) {
+		return false;
 	}
-	else {
-		console.log('Здравствуйте, юноша!');
-	}
+	return true;
 }
-greetByAge(12);
-greetByAge(18);
+console.log(isEmpty({}));
+console.log(isEmpty({ a: 1 }));
 
-console.log('\n=========== Задание 3. ===========\n');
-
-function maxOfThree(a, b, c) {
-	return Math.max(a, b, c);
+console.log('=== Задание 4 ===');
+/*
+'const' не позволяет переназначить переменную, но не запрещает изменять свойства объекта, на который она ссылается.
+Поэтому это не вызовет ошибку, а просто изменит имя внутри объекта.
+*/
+const constUser = {
+	name: 'John',
+};
+constUser.name = 'Pete';
+console.log(constUser);
+try {
+	constUser = 123;
 }
-console.log(maxOfThree(7, 12, 5));
-
-console.log('\n=========== Задание 4. ===========\n');
-
-let variable = 'Глобальная переменная';
-function f() {
-	let variable = 'Локальная переменная';
-	console.log(variable);
-}
-f();
-console.log(variable);
-console.log('Внутри f() объявлена своя переменная variable, она видна только в функции и не меняет глобальную.');
-
-console.log('\n=========== Задание 5. ===========\n');
-
-function digits(x, y, z) {
-	return (Math.max(x, y) + Math.max(x + y, z)) / (Math.pow((Math.max(0.5, x + z)), 2));
-}
-console.log(`u = ${digits(1, 2, 3)}`);
-
-console.log('\n=========== Задание 6. ===========\n');
-
-function polygonPerimeter(...coords) {
-	if (coords.length % 2 !== 0) {
-		throw new Error('Должно быть передано четное количество координат (x1, y1, ..., xn, yn).');
-	}
-
-	const n = coords.length / 2;
-	if (n < 3) {
-		throw new Error('Для многоугольника нужно минимум 3 вершины.');
-	}
-
-	let perimeter = 0;
-
-	for (let i = 0; i < n; i++) {
-		const x1 = coords[i * 2];
-		const y1 = coords[i * 2 + 1];
-		const next = (i + 1) % n;
-		const x2 = coords[next * 2];
-		const y2 = coords[next * 2 + 1];
-
-		perimeter += Math.hypot(x2 - x1, y2 - y1);
-	}
-
-	return perimeter;
-}
-console.log('Периметр квадрата (ожидание 4):', polygonPerimeter(0, 0, 1, 0, 1, 1, 0, 1));
-console.log('Периметр треугольника 3-4-5 (ожидание 12):', polygonPerimeter(0, 0, 3, 0, 0, 4));
-
-console.log('\n=========== Задание 7. ===========\n');
-
-function sequenceState(n) {
-	if (!Number.isInteger(n) || n < 1) {
-		throw new Error('n должно быть целым числом >= 1.');
-	}
-
-	if (n === 1) {
-		return { term: 1, sum: 1 };
-	}
-
-	const prev = sequenceState(n - 1);
-	const term = Math.sin(prev.sum);
-	return { term, sum: prev.sum + term };
+catch (error) {
+	console.log(error.message);
 }
 
-function sequenceNth(n) {
-	return sequenceState(n).term;
-}
-
-console.log('a1 (ожидание 1):', sequenceNth(1));
-console.log('a2 (ожидание sin(1)):', sequenceNth(2));
-console.log('a3 (ожидание sin(1 + sin(1))):', sequenceNth(3));
-
-console.log('Тест a2:', sequenceNth(2) === Math.sin(1));
-console.log('Тест a3:', sequenceNth(3) === Math.sin(1 + Math.sin(1)));
-
-console.log('\n=========== Массивы. ===========\n');
-console.log('\n=========== Задание 1. ===========\n');
-
-let arr1 = [];
-arr1[0] = 10;
-arr1[1] = 20;
-arr1[2] = 30;
-console.log(arr1[2]);
-console.log(arr1.length);
-arr1.splice(1, 1);
-for (let i = 0; i < arr1.length; i++) {
-	console.log(arr1[i]);
-}
-
-console.log('\n=========== Задание 2. ===========\n');
-let countries = ['Россия', 'Казахстан', 'Беларусь'];
-let population = [146000000, 19000000, 9300000];
-
-function printCountriesFor(country, pop) {
-	for (let i = 0; i < country.length; i++) {
-		console.log(`${country[i]}: ${pop[i]}`);
-	}
-}
-
-function printCountriesForIn(country, pop) {
-	for (let i in country) {
-		console.log(`${country[i]}: ${pop[i]}`);
-	}
-}
-
-printCountriesFor(countries, population);
-printCountriesForIn(countries, population);
-
-console.log('\n=========== Задание 3. ===========\n');
-let arr3 = ['January', 'February', 'March', 'April', 'May', 'June'];
-let len = arr3.pop();
-console.log(arr3.join(' '));
-console.log(len);
-
-console.log('\n=========== Задание 4. ===========\n');
-let a4 = [1, 2, 3, 4, 5, 6, 7];
-let t = a4.slice(0, 3);
-console.log(t);
-
-console.log('\n=========== Задание 5. ===========\n');
-let a5 = [1, 2, 3, 4, 5, 6, 7];
-let d = a5.splice(1, 3);
-console.log(a5);
-console.log(d);
-
-console.log('\n=========== Задание 6. ===========\n');
-let a6 = [1, 2, 3, 4, 5];
-console.log(a6.reverse());
-
-console.log('\n=========== Задание 7. ===========\n');
-let a7 = ['c', 5, 2, 'b', 3, 1, 4, 'a'];
-a7.sort((x, y) => {
-	let xNum = typeof x === 'number';
-	let yNum = typeof y === 'number';
-
-	if (xNum && yNum) return x - y;
-	if (xNum && !yNum) return -1;
-	if (!xNum && yNum) return 1;
-	return String(x).localeCompare(String(y));
-});
-console.log(a7);
-
-console.log('\n=========== Задание 8. ===========\n');
-let a8 = [1, 2, 3, 4, 5];
-console.log(a8.join('+'));
-
-console.log('\n=========== Задание 9. ===========\n');
-let a = [1, 2, 5, 4, 6];
-let b = [8, 2, 5, 9, 5];
-let merged = a.concat(b).sort((x, y) => x - y);
-let mid = Math.floor(merged.length / 2);
-let median = merged.length % 2 === 0 ? (merged[mid - 1] + merged[mid]) / 2 : merged[mid];
-console.log(merged);
-console.log(median);
-
-console.log('\n=========== Задание 10. ===========\n');
-let array = Array.from({ length: 10 }, () => Math.floor(Math.random() * 21) - 10);
-let min10 = Math.min(...array);
-let max10 = Math.max(...array);
-let minIndex10 = array.indexOf(min10);
-let maxIndex10 = array.indexOf(max10);
-[array[minIndex10], array[maxIndex10]] = [array[maxIndex10], array[minIndex10]];
-console.log(array);
-
-console.log('\n=========== Задание 11. ===========\n');
-let a11 = [9, 7, 7, 3, 1];
-let isDesc = true;
-let badIndex = -1;
-
-for (let i = 1; i < a11.length; i++) {
-	if (a11[i] > a11[i - 1]) {
-		isDesc = false;
-		badIndex = i;
-		break;
-	}
-}
-
-if (isDesc) {
-	console.log([...a11].reverse());
-}
-else {
-	console.log(badIndex);
-}
-
-console.log('\n=========== Задание 12. ===========\n');
-let a12 = [4, -2, 5, 6, -10, 3, -8, 7];
-for (let i = 0; i < a12.length; i++) {
-	if (a12[i] > 0 && i % 2 !== 0) {
-		a12[i] *= 3;
-	}
-	else if (a12[i] < 0 && i % 2 === 0) {
-		a12[i] /= 5;
-	}
-}
-console.log(a12);
-
-console.log('\n=========== Задание 13. ===========\n');
-let m13 = [
-	[2, -6, 8, 1, 10],
-	[7, -5, 0, 12, 3],
-	[9, 4, -2, 6, -8],
-	[5, 11, -4, 7, 2],
-	[-1, 13, -7, 14, 15],
-];
-
-for (let i = 0; i < m13.length; i++) {
-	for (let j = 0; j < m13[i].length; j++) {
-		if (m13[i][j] >= -5 && m13[i][j] <= 7) {
-			console.log(m13[i][j]);
+console.log('=== Задание 5 ===');
+function multiplyNumeric(obj) {
+	for (let key in obj) {
+		if (typeof obj[key] === 'number') {
+			obj[key] *= 2;
 		}
 	}
 }
-
-console.log('\n=========== Задание 14. ===========\n');
-let m14 = [
-	[3, 1, 9, 4],
-	[8, 2, 5, 7],
-	[6, 0, 11, 10],
-];
-
-let sumRowMax = 0;
-for (let i = 0; i < m14.length; i++) {
-	sumRowMax += Math.max(...m14[i]);
-}
-
-let colCount = m[0].length;
-let productColMin = 1;
-for (let j = 0; j < colCount; j++) {
-	let colMin = m[0][j];
-	for (let i = 1; i < m.length; i++) {
-		if (m[i][j] < colMin) colMin = m[i][j];
-	}
-	productColMin *= colMin;
-}
-
-console.log(sumRowMax);
-console.log(productColMin);
-
-console.log('\n=========== Задание 15. ===========\n');
-let booksByAuthor = {
-	'Пушкин': ['Евгений Онегин', 'Капитанская дочка'],
-	'Есенин': ['Анна Снегина', 'Черный человек'],
-	'Данцова': ['Маникюр для покойника', 'Крутые наследнички'],
+let menu = {
+	width: 200,
+	height: 300,
+	title: 'My menu',
 };
+multiplyNumeric(menu);
+console.log(menu);
 
-for (let author in booksByAuthor) {
-	console.log(author);
-	console.log(booksByAuthor[author].join(', '));
+console.log('=== Задание 6 ===');
+let calculator = {
+	a: 0,
+	b: 0,
+	read(a, b) {
+		this.a = a;
+		this.b = b;
+	},
+	sum() {
+		return this.a + this.b;
+	},
+	mul() {
+		return this.a * this.b;
+	},
+};
+calculator.read(3, 7);
+console.log(calculator.sum());
+console.log(calculator.mul());
+
+console.log('=== Задание 7 ===');
+let ladder = {
+	step: 0,
+	up() {
+		this.step++;
+		return this;
+	},
+	down() {
+		this.step--;
+		return this;
+	},
+	showStep() {
+		console.log(this.step);
+		return this;
+	},
+};
+ladder.up().up().down().showStep().down().showStep();
+
+console.log('=== Задание 8 ===');
+function Browser(name, version) {
+	this.name = name;
+	this.version = version;
+	this.aboutBrowser = function() {
+		console.log(`Browser: ${this.name}, version: ${this.version}`);
+	};
+}
+let myBrowser2 = new Browser('Microsoft Internet Explorer', '9.0');
+console.log(myBrowser2.name);
+console.log(myBrowser2.version);
+myBrowser2.aboutBrowser();
+
+console.log('=== Задание 9 ===');
+function Employee(name, department, phone, salary) {
+	this.name = name;
+	this.department = department;
+	this.phone = phone;
+	this.salary = salary;
+	this.showInfo = function() {
+		console.log(`Имя: ${this.name}`);
+		console.log(`Отдел: ${this.department}`);
+		console.log(`Телефон: ${this.phone}`);
+		console.log(`Зарплата: ${this.salary}`);
+	};
+}
+let employee = new Employee('Иван', 'IT', '+7-900-000-00-00', 256256);
+employee.showInfo();
+
+console.log('=== Задание 10 ===');
+function Calculator() {
+	this.a = 0;
+	this.b = 0;
+	this.read = function(a, b) {
+		this.a = a;
+		this.b = b;
+	};
+	this.sum = function() {
+		return this.a + this.b;
+	};
+	this.mul = function() {
+		return this.a * this.b;
+	};
+}
+let calculator2 = new Calculator();
+calculator2.read(4, 6);
+console.log(calculator2.sum());
+console.log(calculator2.mul());
+
+console.log('=== Задание 11 ===');
+function Accumulator(startingValue) {
+	this.value = startingValue;
+	this.read = function(a) {
+		this.value += a;
+	};
+}
+let accumulator = new Accumulator(1);
+accumulator.read(10);
+accumulator.read(5);
+console.log(accumulator.value);
+
+console.log('=== Прототипы 1 ===');
+/* rabbit.jumps возвращает true, так как свойство jumps есть в объекте rabbit.
+delete rabbit.jumps удаляет свойство jumps из объекта rabbit, но оно все равно доступно через прототип animal, поэтому rabbit.jumps возвращает null.
+delete animal.jumps удаляет свойство jumps из объекта animal, и теперь rabbit.jumps возвращает undefined, так как оно не найдено ни в rabbit, ни в его прототипе animal.
+*/
+{
+	let animal = {
+		jumps: null,
+	};
+	let rabbit = {
+		__proto__: animal,
+		jumps: true,
+	};
+	console.log('(1)', rabbit.jumps);
+	delete rabbit.jumps;
+	console.log('(2)', rabbit.jumps);
+	delete animal.jumps;
+	console.log('(3)', rabbit.jumps);
 }
 
+console.log('=== Прототипы 2 ===');
+/*
+Когда мы вызываем rabbit.eat(), метод eat устанавливает свойство full на объекте rabbit, так как this внутри метода eat ссылается на объект, который вызвал метод (в данном случае rabbit). Поэтому rabbit.full становится true.
+Свойство full не устанавливается на объекте animal, так как метод eat не изменяет прототип, а только объект, который его вызвал. Поэтому animal.full остается undefined.
+Проверка rabbit.hasOwnProperty('full') возвращает true, так как свойство full действительно принадлежит объекту rabbit, а не его прототипу animal.
+*/
+{
+	let animal = {
+		eat() {
+			this.full = true;
+		},
+	};
+	let rabbit = { __proto__: animal };
+	rabbit.eat();
+	console.log('rabbit.full:', rabbit.full);
+	console.log('animal.full:', animal.full);
+	console.log('full у rabbit:', rabbit.hasOwnProperty('full'));
+}
+
+console.log('=== Прототипы 3 ===');
+/*
+Проблема заключается в том, что объекты speedyBad и lazyBad наследуют свойство stomach от hamsterBad.
+Когда speedyBad.eat('apple') вызывается, он добавляет 'apple' в stomach, который является общим для всех объектов, наследующих от hamsterBad.
+Поэтому и speedyBad.stomach, и lazyBad.stomach показывают ['apple'], что не соответствует ожидаемому поведению.
+
+Исправление заключается в том, чтобы каждый объект (speedy и lazy) имел свою собственную копию свойства stomach.
+Это достигается путем создания отдельного массива stomach для каждого объекта, вместо того чтобы наследовать его от hamster.
+Теперь speedy.eat('apple') будет добавлять 'apple' только в stomach объекта speedy, а lazy.stomach останется пустым.
+*/
+{
+	let hamsterBad = {
+		stomach: [],
+		eat(food) {
+			this.stomach.push(food);
+		},
+	};
+	let speedyBad = {
+		__proto__: hamsterBad,
+	};
+	let lazyBad = {
+		__proto__: hamsterBad,
+	};
+	speedyBad.eat('apple');
+	console.log('Проблема speedy:', speedyBad.stomach);
+	console.log('Проблема lazy:', lazyBad.stomach);
+
+	let hamster = {
+		eat(food) {
+			this.stomach.push(food);
+		},
+	};
+	let speedy = {
+		__proto__: hamster,
+		stomach: [],
+	};
+	let lazy = {
+		__proto__: hamster,
+		stomach: [],
+	};
+	speedy.eat('apple');
+	console.log('Исправлено speedy:', speedy.stomach);
+	console.log('Исправлено lazy:', lazy.stomach);
+}
+
+console.log('=== Прототипы 4 ===');
+/*
+В этом примере мы добавляем свойства color и size, а также метод write к прототипу String.
+Это означает, что все строки в JavaScript будут иметь доступ к этим свойствам и методу.
+Когда мы создаем строку s с помощью new String('Это строка'), она наследует эти свойства и метод от прототипа String.
+Мы можем изменить цвет и размер для этой конкретной строки, а затем вызвать метод write, который выведет информацию о цвете, размере и самом тексте.
+Когда мы создаем другую строку s2, она также наследует эти свойства и метод, но так как мы не изменяли их для s2, они будут иметь значения по умолчанию (color: 'black', size: '14px') при вызове метода write.
+*/
+{
+	String.prototype.color = 'black';
+	String.prototype.size = '14px';
+	String.prototype.write = function() {
+		console.log('Цвет текста: ' + this.color);
+		console.log('Размер шрифта: ' + this.size);
+		console.log('Текст: ' + this.toString());
+	};
+
+	let s = new String('Это строка');
+	s.color = 'red';
+	s.size = '18px';
+	s.write();
+
+	let s2 = new String('Вторая строка');
+	s2.write();
+}
+
+console.log('=== Прототипы 5 ===');
+/*
+При создании rabbit он наследует eats: true от прототипа, и изменения прототипа или удаление свойств не влияют на уже созданные экземпляры,
+так как они продолжают ссылаться на исходный прототип.
+*/
+{
+	function buildRabbit() {
+		function Rabbit() {}
+		Rabbit.prototype = { eats: true };
+		let rabbit = new Rabbit();
+		return { Rabbit, rabbit };
+	}
+
+	{
+		let { Rabbit, rabbit } = buildRabbit();
+		Rabbit.prototype = {};
+		console.log('Rabbit.prototype = {} =>', rabbit.eats);
+	}
+	{
+		let { Rabbit, rabbit } = buildRabbit();
+		Rabbit.prototype.eats = false;
+		console.log('Rabbit.prototype.eats = false =>', rabbit.eats);
+	}
+	{
+		let { rabbit } = buildRabbit();
+		delete rabbit.eats;
+		console.log('delete rabbit.eats =>', rabbit.eats);
+	}
+	{
+		let { Rabbit, rabbit } = buildRabbit();
+		delete Rabbit.prototype.eats;
+		console.log('delete Rabbit.prototype.eats =>', rabbit.eats);
+	}
+}
+
+console.log('=== Классы 1 ===');
+{
+	class Clock {
+		constructor(hours, minutes, seconds) {
+			this.hours = hours;
+			this.minutes = minutes;
+			this.seconds = seconds;
+		}
+
+		showTime() {
+			const h = String(this.hours).padStart(2, '0');
+			const m = String(this.minutes).padStart(2, '0');
+			const s = String(this.seconds).padStart(2, '0');
+			console.log(`${h}:${m}:${s}`);
+		}
+	}
+
+	let clock = new Clock(9, 5, 7);
+	clock.showTime();
+}
+
+console.log('=== Классы 2 ===');
+{
+	class Animal {
+		constructor(name) {
+			this.name = name;
+		}
+	}
+	class Rabbit extends Animal {
+		constructor(name) {
+			// Вызываем super для передачи параметра в конструктор родителя
+			super(name);
+			this.created = Date.now();
+		}
+	}
+	let rabbit = new Rabbit('Белый кролик');
+	console.log(rabbit.name);
+}
+
+console.log('=== Классы 3 ===');
+{
+	class Clock {
+		constructor(template) {
+			this.template = template;
+		}
+		render() {
+			let date = new Date();
+			let hours = date.getHours();
+			if (hours < 10) hours = '0' + hours;
+			let mins = date.getMinutes();
+			if (mins < 10) mins = '0' + mins;
+			let secs = date.getSeconds();
+			if (secs < 10) secs = '0' + secs;
+			let output = this.template
+				.replace('h', hours)
+				.replace('m', mins)
+				.replace('s', secs);
+			console.log(output);
+		}
+		stop() {
+			clearInterval(this.timer);
+		}
+		start() {
+			this.render();
+			this.timer = setInterval(() => this.render(), 1000);
+		}
+	}
+
+	class ExtendedClock extends Clock {
+		constructor(template, precision = 1000) {
+			super(template);
+			this.precision = precision;
+		}
+
+		start() {
+			this.render();
+			this.timer = setInterval(() => this.render(), this.precision);
+		}
+	}
+
+	let extendedClock = new ExtendedClock('h:m:s', 300);
+	extendedClock.start();
+	setTimeout(() => {
+		extendedClock.stop();
+		console.log('ExtendedClock stopped');
+	}, 1100);
+}
+
+console.log('=== Классы 4 ===');
+{
+	class Stock {
+		constructor() {
+			this.nextSerial = 0;
+			this.boxes = new Map();
+		}
+
+		add(w, v) {
+			const serial = this.nextSerial++;
+			this.boxes.set(serial, { serial, w, v });
+			return serial;
+		}
+
+		getByW(minW) {
+			return this.#takeBox('w', minW);
+		}
+
+		getByV(minV) {
+			return this.#takeBox('v', minV);
+		}
+
+		#takeBox(field, minValue) {
+			let candidate = null;
+			for (let box of this.boxes.values()) {
+				if (box[field] >= minValue) {
+					if (candidate === null) {
+						candidate = box;
+					}
+					else if (box[field] < candidate[field]) {
+						candidate = box;
+					}
+					else if (box[field] === candidate[field] && box.serial > candidate.serial) {
+						candidate = box;
+					}
+				}
+			}
+
+			if (candidate === null) {
+				return -1;
+			}
+
+			this.boxes.delete(candidate.serial);
+			return candidate.serial;
+		}
+	}
+
+	let stock = new Stock();
+	console.log('add:', stock.add(10, 100));
+	console.log('add:', stock.add(8, 120));
+	console.log('add:', stock.add(12, 90));
+	console.log('add:', stock.add(10, 140));
+	console.log('getByW(9):', stock.getByW(9));
+	console.log('getByV(100):', stock.getByV(100));
+	console.log('getByW(11):', stock.getByW(11));
+	console.log('getByV(200):', stock.getByV(200));
+}
