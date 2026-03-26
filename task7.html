@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Задание 7</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="page stack">
+    <div class="task-nav"><a class="back-link" href="./index.html">На главную</a></div>
+    <section class="hero">
+      <p class="eyebrow">Задание 7</p>
+      <h1>Функция clear(elem)</h1>
+    </section>
+
+    <section class="panel stack">
+      <div class="button-row">
+        <button class="action-button" id="clear-list">Очистить список</button>
+      </div>
+      <ol id="list" class="clean-list">
+        <li>Привет</li>
+        <li>Мир</li>
+      </ol>
+      <pre class="code-box">function clear(elem) {
+  elem.innerHTML = '';
+}</pre>
+    </section>
+  </main>
+
+  <script>
+    function clear(elem) {
+      elem.innerHTML = '';
+    }
+
+    document.getElementById('clear-list').addEventListener('click', () => {
+      clear(document.getElementById('list'));
+    });
+  </script>
+</body>
+</html>

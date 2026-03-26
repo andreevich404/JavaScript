@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Задание 4</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="page stack">
+    <div class="task-nav"><a class="back-link" href="./index.html">На главную</a></div>
+    <section class="hero">
+      <p class="eyebrow">Задание 4</p>
+      <h1>DOM-запросы по таблице и форме</h1>
+    </section>
+
+    <section class="panel stack">
+      <form name="search">
+        <label class="focus-target">Search the site:
+          <input type="text" name="search">
+        </label>
+        <input type="submit" value="Search!">
+      </form>
+
+      <hr>
+
+      <form name="search-person">
+        Search the visitors:
+        <table id="age-table" class="focus-target">
+          <tbody>
+            <tr>
+              <td class="focus-target">Age:</td>
+              <td id="age-list">
+                <label class="focus-target">
+                  <input type="radio" name="age" value="young">less than 18
+                </label>
+                <label class="focus-target">
+                  <input type="radio" name="age" value="mature">18-50
+                </label>
+                <label class="focus-target">
+                  <input type="radio" name="age" value="senior">more than 50
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <td>Additionally:</td>
+              <td class="additional-inputs">
+                <input type="text" name="info[0]">
+                <input type="text" name="info[1]">
+                <input type="text" name="info[2]">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <input type="submit" value="Search!">
+      </form>
+
+      <div class="button-row">
+        <button class="action-button" id="run-task4">Показать результат</button>
+      </div>
+
+      <div class="result-box" id="task4-output"></div>
+      <pre class="code-box">const ageTable = document.getElementById('age-table');
+const labels = ageTable.querySelectorAll('label');
+const firstTd = ageTable.querySelector('td');
+const form = document.forms.search;
+const firstInput = form.querySelector('input');
+const lastInput = form.querySelector('input:last-of-type');</pre>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById('run-task4').addEventListener('click', () => {
+      const ageTable = document.getElementById('age-table');
+      const labels = ageTable.querySelectorAll('label');
+      const firstTd = ageTable.querySelector('td');
+      const form = document.forms.search;
+      const firstInput = form.querySelector('input');
+      const lastInput = form.querySelector('input:last-of-type');
+
+      document.querySelectorAll('.is-highlighted').forEach(element => {
+        element.classList.remove('is-highlighted');
+      });
+
+      ageTable.classList.add('is-highlighted');
+      labels.forEach(label => label.classList.add('is-highlighted'));
+      firstTd.classList.add('is-highlighted');
+      form.classList.add('is-highlighted');
+      firstInput.classList.add('is-highlighted');
+      lastInput.classList.add('is-highlighted');
+
+      document.getElementById('task4-output').textContent =
+        `Таблица: #${ageTable.id}\n` +
+        `Количество label: ${labels.length}\n` +
+        `Первый td: ${firstTd.textContent.trim()}\n` +
+        `Форма: ${form.getAttribute('name')}\n` +
+        `Первый input: name=${firstInput.name}, type=${firstInput.type}\n` +
+        `Последний input: name=${lastInput.name || '(без имени)'}, type=${lastInput.type}`;
+    });
+  </script>
+
+  <style>
+    .additional-inputs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .additional-inputs input[type="text"] {
+      width: min(100%, 180px);
+    }
+
+    @media (max-width: 720px) {
+      .additional-inputs {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .additional-inputs input[type="text"] {
+        width: 100%;
+      }
+    }
+  </style>
+</body>
+</html>

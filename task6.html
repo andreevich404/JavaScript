@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Задание 6</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="page stack">
+    <div class="task-nav"><a class="back-link" href="./index.html">На главную</a></div>
+    <section class="hero">
+      <p class="eyebrow">Задание 6</p>
+      <h1>Внешние ссылки оранжевым</h1>
+    </section>
+
+    <section class="panel stack">
+      <ul class="links-list" id="links-list">
+        <li><a href="http://google.com">http://google.com</a></li>
+        <li><a href="/tutorial">/tutorial.html</a></li>
+        <li><a href="local/path">local/path</a></li>
+        <li><a href="ftp://ftp.com/my.zip">ftp://ftp.com/my.zip</a></li>
+        <li><a href="http://nodejs.org">http://nodejs.org</a></li>
+        <li><a href="http://internal.com/test">http://internal.com/test</a></li>
+      </ul>
+      <div class="button-row">
+        <button class="action-button" id="color-links">Покрасить ссылки</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById('color-links').addEventListener('click', () => {
+      const links = document.querySelectorAll('a[href]');
+      links.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href.includes('://') && !href.startsWith('http://internal.com')) {
+          link.style.color = 'orange';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

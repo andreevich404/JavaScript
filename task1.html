@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Задание 1</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="page stack">
+    <div class="task-nav"><a class="back-link" href="./index.html">На главную</a></div>
+    <section class="hero">
+      <p class="eyebrow">Задание 1</p>
+      <h1>Скрипты с prompt и alert</h1>
+      <p class="lead">Каждая кнопка запускает отдельную подзадачу a-j.</p>
+    </section>
+
+    <section class="panel stack">
+      <div class="task-actions-grid">
+        <button class="action-button" data-task="a">a. sin(x)</button>
+        <button class="action-button" data-task="b">b. Точка и квадрат</button>
+        <button class="action-button" data-task="c">c. Сумма двух квадратов</button>
+        <button class="action-button" data-task="d">d. Проверка email</button>
+        <button class="action-button" data-task="e">e. Доля латинских букв</button>
+        <button class="action-button" data-task="f">f. Удаление повторных слов</button>
+        <button class="action-button" data-task="g">g. Массив по 5 в строке</button>
+        <button class="action-button" data-task="h">h. Матрица и диагонали</button>
+        <button class="action-button" data-task="i">i. Дата + n дней</button>
+        <button class="action-button" data-task="j">j. Месяцы до 1 сентября</button>
+      </div>
+      <div class="result-box result-box-large matrix-output" id="task1-log">Результат последнего сценария дополнительно будет показан здесь.</div>
+    </section>
+  </main>
+
+  <script>
+    const logBox = document.getElementById('task1-log');
+
+    function writeResult(text) {
+      logBox.textContent = text;
+      alert(text);
+    }
+
+    function askNumber(message) {
+      const raw = prompt(message);
+      if (raw === null) {
+        return null;
+      }
+      const value = Number(raw);
+      if (Number.isNaN(value)) {
+        alert('Нужно ввести число.');
+        return null;
+      }
+      return value;
+    }
+
+    function formatMatrix(matrix) {
+      return matrix.map(row => row.map(value => value.toFixed(2)).join('\t')).join('\n');
+    }
+
+    function runTaskA() {
+      const x = askNumber('Введите x для вычисления sin(x)');
+      if (x === null) return;
+      writeResult(`sin(${x}) = ${Math.sin(x)}`);
+    }
+
+    function runTaskB() {
+      const x1 = askNumber('Введите x1');
+      const y1 = askNumber('Введите y1');
+      const x2 = askNumber('Введите x2');
+      const y2 = askNumber('Введите y2');
+      const x = askNumber('Введите x точки');
+      const y = askNumber('Введите y точки');
+      if ([x1, y1, x2, y2, x, y].some(value => value === null)) return;
+
+      const minX = Math.min(x1, x2);
+      const maxX = Math.max(x1, x2);
+      const minY = Math.min(y1, y2);
+      const maxY = Math.max(y1, y2);
+      const inside = x >= minX && x <= maxX && y >= minY && y <= maxY;
+
+      writeResult(inside ? 'Точка принадлежит квадрату.' : 'Точка не принадлежит квадрату.');
+    }
+
+    function runTaskC() {
+      const n = askNumber('Введите натуральное число');
+      if (n === null || !Number.isInteger(n) || n <= 0) {
+        alert('Нужно натуральное число.');
+        return;
+      }
+
+      let canRepresent = false;
+      let answer = '';
+      for (let a = 1; a * a < n; a++) {
+        for (let b = 1; b * b < n; b++) {
+          if (a * a + b * b === n) {
+            canRepresent = true;
+            answer = `${n} = ${a}^2 + ${b}^2`;
+            break;
+          }
+        }
+        if (canRepresent) break;
+      }
+
+      writeResult(canRepresent ? answer : `${n} нельзя представить как сумму двух квадратов натуральных чисел.`);
+    }
+
+    function runTaskD() {
+      const email = prompt('Введите email');
+      if (email === null) return;
+      writeResult(email.includes('@') ? 'Символ @ найден.' : 'Предупреждение: символ @ отсутствует.');
+    }
+
+    function runTaskE() {
+      const input = prompt('Введите строку');
+      if (input === null) return;
+      if (input.length === 0) {
+        writeResult('Строка пустая. Доля латинских букв: 0%.');
+        return;
+      }
+      const latinCount = [...input].filter(char => /[a-z]/i.test(char)).length;
+      const percent = (latinCount / input.length) * 100;
+      writeResult(`Доля латинских букв: ${percent.toFixed(2)}%.`);
+    }
+
+    function runTaskF() {
+      const input = prompt('Введите строку со словами');
+      if (input === null) return;
+      const words = input.trim().split(/\s+/).filter(Boolean);
+      const seen = new Set();
+      const uniqueWords = words.filter(word => {
+        if (seen.has(word)) return false;
+        seen.add(word);
+        return true;
+      });
+      writeResult(uniqueWords.join(' '));
+    }
+
+    function runTaskG() {
+      const n = askNumber('Введите размер массива n');
+      if (n === null || !Number.isInteger(n) || n <= 0) {
+        alert('Нужно натуральное число.');
+        return;
+      }
+      const array = Array.from({ length: n }, () => Math.floor(Math.random() * 100));
+      const reversed = [...array].reverse();
+      const lines = [];
+      for (let i = 0; i < reversed.length; i += 5) {
+        lines.push(reversed.slice(i, i + 5).join(' '));
+      }
+      writeResult(`Исходный массив: ${array.join(' ')}\n\nОбратный порядок по 5 чисел:\n${lines.join('\n')}`);
+    }
+
+    function runTaskH() {
+      const n = askNumber('Введите порядок квадратной матрицы n');
+      if (n === null || !Number.isInteger(n) || n <= 0) {
+        alert('Нужно натуральное число.');
+        return;
+      }
+
+      const matrix = Array.from({ length: n }, () =>
+        Array.from({ length: n }, () => Number((Math.random() * 20 - 10).toFixed(2)))
+      );
+
+      const diagonalPositions = new Map();
+      for (let i = 0; i < n; i++) {
+        diagonalPositions.set(`${i}:${i}`, matrix[i][i]);
+        diagonalPositions.set(`${i}:${n - 1 - i}`, matrix[i][n - 1 - i]);
+      }
+
+      const diagonalEntries = [...diagonalPositions.entries()];
+      const values = diagonalEntries.map(([, value]) => value);
+      const minValue = Math.min(...values);
+      const maxValue = Math.max(...values);
+
+      for (const [key, value] of diagonalEntries) {
+        if (value !== minValue && value !== maxValue) {
+          const [row, col] = key.split(':').map(Number);
+          matrix[row][col] = 0;
+        }
+      }
+
+      writeResult(`Матрица после обработки:\n${formatMatrix(matrix)}`);
+    }
+
+    function runTaskI() {
+      const days = askNumber('На сколько дней прибавить текущую дату?');
+      if (days === null || !Number.isInteger(days)) {
+        alert('Нужно целое число.');
+        return;
+      }
+      const date = new Date();
+      date.setDate(date.getDate() + days);
+      writeResult(`Новая дата: ${date.toLocaleDateString('ru-RU')}`);
+    }
+
+    function runTaskJ() {
+      const today = new Date();
+      let schoolYear = today.getFullYear();
+      let target = new Date(schoolYear, 8, 1);
+      if (today > target) {
+        target = new Date(schoolYear + 1, 8, 1);
+      }
+
+      let monthsLeft = (target.getFullYear() - today.getFullYear()) * 12 + (target.getMonth() - today.getMonth());
+      if (today.getDate() > 1) {
+        monthsLeft -= 1;
+      }
+      if (monthsLeft < 0) {
+        monthsLeft = 0;
+      }
+
+      writeResult(`До 1 сентября осталось ${monthsLeft} мес.`);
+    }
+
+    const handlers = {
+      a: runTaskA,
+      b: runTaskB,
+      c: runTaskC,
+      d: runTaskD,
+      e: runTaskE,
+      f: runTaskF,
+      g: runTaskG,
+      h: runTaskH,
+      i: runTaskI,
+      j: runTaskJ
+    };
+
+    document.querySelectorAll('[data-task]').forEach(button => {
+      button.addEventListener('click', () => handlers[button.dataset.task]());
+    });
+  </script>
+</body>
+</html>
