@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Задание 5</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="page">
+    <div class="toolbar"><a class="back-link" href="./index.html">На главную</a></div>
+    <section class="hero">
+      <p class="eyebrow">Задание 5</p>
+      <h1>Оповещение об изменении текста</h1>
+    </section>
+    <section class="panel">
+      <div class="field">
+        <label for="change-input">Текстовое поле</label>
+        <input id="change-input" type="text" placeholder="Введите текст">
+      </div>
+    </section>
+  </main>
+  <script>
+    document.getElementById('change-input').addEventListener('change', () => {
+      alert('Текст был изменен!!!');
+    });
+  </script>
+</body>
+</html>

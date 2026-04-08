@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Задание 1</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="page">
+    <div class="toolbar"><a class="back-link" href="./index.html">На главную</a></div>
+    <section class="hero">
+      <p class="eyebrow">Задание 1</p>
+      <h1>Скрытие элемента `#text`</h1>
+    </section>
+    <section class="panel">
+      <button class="action-button" id="hide-text-btn">Скрыть блок</button>
+      <div class="text-box" id="text">Этот блок должен исчезнуть по нажатию кнопки.</div>
+    </section>
+  </main>
+  <script>
+    document.getElementById('hide-text-btn').addEventListener('click', () => {
+      document.getElementById('text').style.display = 'none';
+    });
+  </script>
+</body>
+</html>

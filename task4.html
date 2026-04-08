@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Задание 4</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="page">
+    <div class="toolbar"><a class="back-link" href="./index.html">На главную</a></div>
+    <section class="hero">
+      <p class="eyebrow">Задание 4</p>
+      <h1>alert при щелчке по странице</h1>
+    </section>
+    <section class="panel">
+      <div class="demo-box">Щёлкните мышью по свободному месту страницы.</div>
+    </section>
+  </main>
+  <script>
+    document.addEventListener('click', () => {
+      alert('Был щелчок!');
+    });
+  </script>
+</body>
+</html>

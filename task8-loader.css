@@ -1,0 +1,63 @@
+body {
+  margin: 0;
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  background: #090b0c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.loader-screen {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at top center, rgba(180, 255, 71, 0.08), transparent 22%),
+    linear-gradient(180deg, #07090a 0%, #0f1416 100%);
+}
+
+.loader-card {
+  width: min(420px, 100%);
+  padding: 28px;
+  border-radius: 24px;
+  background: rgba(13, 17, 18, 0.94);
+  border: 1px solid rgba(180, 255, 71, 0.12);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  color: #f4f8f2;
+}
+
+.loader-title {
+  margin: 0 0 16px;
+  font-size: clamp(26px, 5vw, 38px);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+.loader-track {
+  width: 100%;
+  height: 16px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.loader-bar {
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #8ed629, #b4ff47);
+}
+
+.loader-text {
+  margin: 14px 0 0;
+  color: #b5c1b4;
+}
+
+@media (max-width: 420px) {
+  .loader-card {
+    padding: 22px 18px;
+    border-radius: 18px;
+  }
+}

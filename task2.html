@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Задание 2</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="page">
+    <div class="toolbar"><a class="back-link" href="./index.html">На главную</a></div>
+    <section class="hero">
+      <p class="eyebrow">Задание 2</p>
+      <h1>Кнопка скрывает саму себя</h1>
+    </section>
+    <section class="panel">
+      <button class="action-button" id="self-hide-btn">Нажми и я исчезну</button>
+    </section>
+  </main>
+  <script>
+    document.getElementById('self-hide-btn').addEventListener('click', (event) => {
+      event.currentTarget.style.display = 'none';
+    });
+  </script>
+</body>
+</html>

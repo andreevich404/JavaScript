@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tolkachev Ivan</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="page">
+    <div class="toolbar"><a class="back-link" href="./index.html">На главную</a></div>
+    <section class="hero">
+      <p class="eyebrow">Задание 6</p>
+      <h1>Средняя зарплата за первые 6 месяцев</h1>
+    </section>
+    <section class="panel">
+      <form id="salary-form" class="form-grid">
+        <div class="field"><label for="month-1">Январь</label><input id="month-1" type="number" value="42000"></div>
+        <div class="field"><label for="month-2">Февраль</label><input id="month-2" type="number" value="43000"></div>
+        <div class="field"><label for="month-3">Март</label><input id="month-3" type="number" value="41500"></div>
+        <div class="field"><label for="month-4">Апрель</label><input id="month-4" type="number" value="44000"></div>
+        <div class="field"><label for="month-5">Май</label><input id="month-5" type="number" value="45000"></div>
+        <div class="field"><label for="month-6">Июнь</label><input id="month-6" type="number" value="45500"></div>
+        <div class="field field-full salary-output">
+          <label for="average-salary">Средняя зарплата</label>
+          <input id="average-salary" type="text" readonly value="0">
+        </div>
+        <div class="field field-full">
+          <button class="action-button" type="button" id="calc-average">Вычислить</button>
+        </div>
+      </form>
+    </section>
+  </main>
+  <script>
+    document.getElementById('calc-average').addEventListener('click', () => {
+      const values = Array.from({ length: 6 }, (_, index) =>
+        Number(document.getElementById(`month-${index + 1}`).value)
+      );
+      const average = values.reduce((sum, value) => sum + value, 0) / values.length;
+      document.getElementById('average-salary').value = average.toFixed(2);
+    });
+  </script>
+</body>
+</html>

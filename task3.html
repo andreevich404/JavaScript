@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Задание 3</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="page">
+    <div class="toolbar"><a class="back-link" href="./index.html">На главную</a></div>
+    <section class="hero">
+      <p class="eyebrow">Задание 3</p>
+      <h1>Координаты нажатия мыши</h1>
+      <p class="lead">Кликните внутри зоны ниже.</p>
+    </section>
+    <section class="panel">
+      <div class="result" id="coords-result">Координаты ещё не получены.</div>
+      <div class="click-area" id="coords-area"></div>
+    </section>
+  </main>
+  <script>
+    const coordsArea = document.getElementById('coords-area');
+    const coordsResult = document.getElementById('coords-result');
+
+    coordsArea.addEventListener('click', (event) => {
+      const rect = coordsArea.getBoundingClientRect();
+      const localX = event.clientX - rect.left;
+      const localY = event.clientY - rect.top;
+
+      coordsResult.textContent = `Координаты клика: x = ${Math.round(localX)}, y = ${Math.round(localY)}`;
+
+      const point = document.createElement('div');
+      point.className = 'click-point';
+      point.style.left = `${localX}px`;
+      point.style.top = `${localY}px`;
+      coordsArea.innerHTML = '';
+      coordsArea.append(point);
+    });
+  </script>
+</body>
+</html>
