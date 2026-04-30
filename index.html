@@ -1,36 +1,80 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Лабораторная 8 — Использование API</title>
-  <link rel="stylesheet" href="./styles.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Space Explorer</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main class="shell">
-    <section class="hero">
-      <p class="eyebrow">Использование API</p>
-      <h1>Лабораторная работа 8</h1>
-      <p class="lead">Fetch API, XHR, Callbacks, Promises, Async/Await</p>
-    </section>
+	<section id="welcome">
+		<div class="welcome-card">
+			<h1 class="welcome-title">🚀 Space Explorer</h1>
+			<div class="input-group">
+				<label for="name-input">Ваше имя</label>
+				<input
+					type="text"
+					id="name-input"
+					placeholder="Введите имя..."
+					autocomplete="off"
+				>
+			</div>
+			<button id="btn-next" type="button" disabled>Далее →</button>
+		</div>
+	</section>
 
-    <section class="grid">
-      <a class="task-card" href="./task1.html">
-        <span>1</span>
-        <strong>Факты о животных</strong>
-        <small>Случайное имя пользователя и факты о кошках, собаках и лисах через публичное API</small>
-      </a>
-      <a class="task-card" href="./task2.html">
-        <span>2</span>
-        <strong>XHR запросы</strong>
-        <small>5 последовательных запросов: нативный XHR → callback → Promise (.then) → async/await</small>
-      </a>
-      <a class="task-card" href="./task3.html">
-        <span>3</span>
-        <strong>Таблица людей</strong>
-        <small>Асинхронная загрузка, CRUD-операции, цветовая маркировка по возрасту, фильтрация по полу</small>
-      </a>
-    </section>
-  </main>
+	<section id="main" class="hidden">
+		<header class="app-header">
+			<div class="app-header__row">
+				<h2 id="greeting"></h2>
+				<nav class="tabs" aria-label="Режим просмотра">
+					<button class="tab is-active" type="button" data-tab="all">Все</button>
+					<button class="tab" type="button" data-tab="favorites">Избранное</button>
+				</nav>
+			</div>
+		</header>
+		<main class="app-main">
+			<section class="panel controls" aria-label="Фильтры и поиск">
+				<div class="controls__group">
+					<label class="control">
+						<span class="control__label">Поиск</span>
+						<input id="search-input" type="text" placeholder="Найти миссию..." autocomplete="off">
+					</label>
+					<label class="control">
+						<span class="control__label">Год</span>
+						<select id="year-select"></select>
+					</label>
+					<label class="control">
+						<span class="control__label">Статус</span>
+						<select id="status-select">
+							<option value="all">Все</option>
+							<option value="success">Успешные</option>
+							<option value="failure">Неудачные</option>
+							<option value="upcoming">Предстоящие</option>
+						</select>
+					</label>
+				</div>
+				<div class="controls__actions">
+					<button id="btn-reset" type="button">Сбросить фильтры</button>
+				</div>
+			</section>
+
+			<section class="panel stats" aria-label="Статистика">
+				<div id="stats"></div>
+			</section>
+
+			<section class="panel table-panel" aria-label="Список запусков">
+				<div id="table"></div>
+				<div id="error" class="error hidden" role="alert"></div>
+			</section>
+		</main>
+	</section>
+
+	<div id="modal-root" class="modal-root hidden" aria-hidden="true"></div>
+
+	<script type="module" src="js/app.js"></script>
 </body>
 </html>
